@@ -8,45 +8,8 @@
 
 Test
 =====
-package com.github.dreamyoung.mprelation.demo.test;
 
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Resource;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import com.github.dreamyoung.mprelation.AutoMapper;
-import com.github.dreamyoung.mprelation.demo.entity.Child;
-import com.github.dreamyoung.mprelation.demo.entity.Company;
-import com.github.dreamyoung.mprelation.demo.entity.Course;
-import com.github.dreamyoung.mprelation.demo.entity.Man;
-import com.github.dreamyoung.mprelation.demo.entity.Tel;
-import com.github.dreamyoung.mprelation.demo.entity.Woman;
-import com.github.dreamyoung.mprelation.demo.mapper.ChildMapper;
-import com.github.dreamyoung.mprelation.demo.mapper.CompanyMapper;
-import com.github.dreamyoung.mprelation.demo.mapper.ManMapper;
-import com.github.dreamyoung.mprelation.demo.mapper.WomanMapper;
-import com.github.dreamyoung.mprelation.demo.service.IManService;
-
-import lombok.extern.slf4j.Slf4j;
-
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@ComponentScan(basePackages = { "com.github.dreamyoung.mprelation.demo.config",
-		"com.github.dreamyoung.mprelation.demo.service.impl" })
-@Slf4j
-public class ResultmapTest {
-	{
-		log.info("测试免写SQL进行一对多，多对一，一对一，多对多关联查询....");
-	}
-	
+      public class ResultmapTest {
 	@Autowired
 	AutoMapper autoMapper;
 
