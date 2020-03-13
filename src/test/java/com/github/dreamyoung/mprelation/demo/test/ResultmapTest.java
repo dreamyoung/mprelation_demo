@@ -39,7 +39,6 @@ public class ResultmapTest {
 	
 	@Autowired
 	AutoMapper autoMapper;
-
 	@Autowired
 	private IManService manService;
 
