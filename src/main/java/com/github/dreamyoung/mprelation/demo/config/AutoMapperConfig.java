@@ -12,7 +12,7 @@ import com.github.dreamyoung.mprelation.AutoMapper;
 @Configuration
 @EnableTransactionManagement
 //was not registered for synchronization because synchronization is not active
-@ImportResource(locations = "classpath:transaction.xml")
+//@ImportResource(locations = "classpath:transaction.xml")
 public class AutoMapperConfig {
 	@Bean
 	public AutoMapper autoMapper(@Autowired(required = false) ApplicationContext applicationContext) {

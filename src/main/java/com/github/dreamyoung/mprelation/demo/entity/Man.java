@@ -64,5 +64,5 @@ public class Man {
 	@JoinColumn(name = "man_id", referencedColumnName = "man_id")
 	@Lazy(false)
 	private Set<Tel> tels;
-
+	
 }
