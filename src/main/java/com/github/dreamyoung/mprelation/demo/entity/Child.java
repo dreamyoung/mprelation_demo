@@ -1,5 +1,6 @@
 package com.github.dreamyoung.mprelation.demo.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -12,6 +13,7 @@ import com.github.dreamyoung.mprelation.Lazy;
 import com.github.dreamyoung.mprelation.ManyToMany;
 import com.github.dreamyoung.mprelation.ManyToOne;
 import com.github.dreamyoung.mprelation.demo.mapper.StudentCourseMapper;
+import com.github.dreamyoung.mprelation.demo.mapper.StudentTeacherMapper;
 
 import lombok.Data;
 
@@ -45,6 +47,15 @@ public class Child {
 	@JoinTable(targetMapper=StudentCourseMapper.class)
 	@JoinColumn(name = "child_id", referencedColumnName = "student_id")
 	@InverseJoinColumn(name = "course_id", referencedColumnName = "course_id")
-	private Set<Course> courses;
-	
+	@Lazy()
+	private List<Course> courses;
+
+
+	@TableField(exist = false)
+	@ManyToMany
+	@JoinTable(targetMapper=StudentTeacherMapper.class)
+	@JoinColumn(name = "child_id", referencedColumnName = "student_id")
+	@InverseJoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
+	@Lazy(false)
+	private Set<Teacher> teachers;
 }

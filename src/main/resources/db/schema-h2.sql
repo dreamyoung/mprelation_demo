@@ -53,9 +53,24 @@ create table course
 );
 
 
+create table Teacher
+(
+    teacher_id         bigint(20) not null,
+    name       varchar(30)
+);
+
+
+
 create table student_course
 (
     id         bigint(20) not null,
     student_id      bigint(20) not null,
     course_id      bigint(20) not null
+);
+
+create table student_teacher
+(
+    id         bigint(20) not null,
+    student_id      bigint(20) not null,
+    teacher_id      bigint(20) not null
 );

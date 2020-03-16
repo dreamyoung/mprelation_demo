@@ -41,6 +41,7 @@ public class Man {
 
 	@TableField(exist = false)
 	@OneToOne
+	@Lazy(true)
 	@JoinColumn(name = "lao_po_id", referencedColumnName = "woman_id")
 	private Woman laoPo;
 
@@ -51,18 +52,20 @@ public class Man {
 	@TableField(exist = false)
 	@ManyToOne
 	@JoinColumn(name = "company_id", referencedColumnName = "company_id")
-	@Lazy
+	@Lazy()
 	private Company company;
 
 	@TableField(exist = false)
 	@OneToMany
 	@JoinColumn(name = "man_id", referencedColumnName = "lao_han_id")
+	@Lazy(true)
 	private List<Child> waWa;
 
 	@TableField(exist = false)
 	@OneToMany
 	@JoinColumn(name = "man_id", referencedColumnName = "man_id")
-	@Lazy(false)
+	@Lazy(true)
 	private Set<Tel> tels;
+	
 	
 }
