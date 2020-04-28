@@ -17,10 +17,12 @@ import com.github.dreamyoung.mprelation.demo.service.IManService;
 public class ManController {
 
 	@Autowired
-	private AutoMapper autoMapper;
+	private IManService manService;
+	
+
 
 	@Autowired
-	private IManService manService;
+	private AutoMapper autoMapper;
 
 	@ResponseBody
 	@RequestMapping(value = "man/{id}")
@@ -29,22 +31,26 @@ public class ManController {
 		return man;
 	}
 
+	
 	@ResponseBody
 	@RequestMapping(value = "mans")
 	public List<Man> listMans() {
 		List<Man> list = manService.list();
 
-		// only load wawas
-		autoMapper.mapperEntityList(list, "waWa");
-
-		// init wawas's courses
-		for (int i = 0; i < list.size(); i++) {
-			autoMapper.mapperEntityList(list.get(i).getWaWa(), "courses");
-		}
-
-		autoMapper.mapperEntityList(list, "tels");
-
+		System.out.println("list lazy will start after @ResponseBody...");
+		
+		autoMapper.mapperEntityList(list,"waWa");
+		autoMapper.mapperEntityList(list,"tels");
+		
 		return list;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "mans2")
+	public List<Man> listMansLazySomeProperty() {
+		List<Man> list = manService.listMansOneConnectionMoreAutoMapper();
+		return list;
+	}
+	
 
 }

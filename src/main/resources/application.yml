@@ -11,6 +11,23 @@ spring:
     url: jdbc:h2:mem:test
     username: root
     password: test
+    ################druid############################
+    #type: com.alibaba.druid.pool.DruidDataSource    # 配置当前要使用的数据源的操作类型
+    #filters: stat,wall,log4j
+    #dbcp2:                                          # 进行数据库连接池的配置
+    #  min-idle: 10                                  # 数据库连接池的最小维持连接数    
+    #  initial-size: 20                              # 初始化提供的连接数
+    #  max-total: 50                                 # 最大的连接数
+    #  max-wait-millis: 200                          # 等待连接获取的最大超时时间
+    ################dbcp############################
+    type: org.apache.commons.dbcp.BasicDataSource    # 配置当前要使用的数据源的操作类型
+    filters: stat,wall,log4j
+    dbcp:                                          # 进行数据库连接池的配置
+      min-idle: 10                                  # 数据库连接池的最小维持连接数    
+      initial-size: 20                              # 初始化提供的连接数
+      max-total: 50                                 # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间
+    
 
 # Logger Config
 logging:
@@ -18,7 +35,8 @@ logging:
     com.gihub.dreamyoung.mprelation: debug
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*Mapper.xml
+  #如果xml映射文件的位置与mapper接口文件（mapper接口可以通过@Mapper被扫描或者配置类@MapperScan指定位置扫描）的位置不同目录，则需要指定
+  #mapper-locations: classpath:/com/github/dreamyoung/mprelation/demo/mapper2/*Mapper.xml
   global-config: 
       db-config: 
           #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
@@ -30,4 +48,4 @@ mybatis-plus:
      #查询时为null字段不加入，比如QueryWrapper中的应用
      call-setters-on-nulls: true
      lazyLoadingEnabled: true
-     aggressiveLazyLoading: true
+     aggressiveLazyLoading: false

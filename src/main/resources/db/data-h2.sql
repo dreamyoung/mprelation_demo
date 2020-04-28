@@ -2,7 +2,7 @@
 
 insert into man(man_id, name, lao_po_id, company_id)
 values (1, '程序猿小明', 1, 1),
-       (2, '隔壁老王2', 2, 1),
+       (2, '隔壁老王2', 0, 1),
        (3, '隔壁老王3', 3, 2);
        
 insert into company(company_id,name)
@@ -11,7 +11,7 @@ values (1,'百度'),
 
 insert into woman(woman_id, name, lao_gong_id)
 values (1, '程序猿小明老婆', 1),
-       (2, '隔壁老王老婆', 2),
+       (2, '隔壁老王老婆', 4),
        (3, '隔壁老王老婆3', 3);
 
 INSERT INTO child (child_id, name, lao_han_id, lao_ma_id)

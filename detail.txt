@@ -1,0 +1,132 @@
+通过配置事务管理，一个Service方法同个事务完成所有的自动关联操作，则关联查询可以做到正常：只需要1个连接，执行多条SQL进行关联。
+这对于原Mybatis-Plus的ServiceImpl当中的所有方法的关联查询都只用一个sqlSession完成。
+
+非内置的方法同理，只要加事务：
+	@Transational
+	public List<Man> listMansOneConnectionMoreAutoMapper() {
+			List<Man> list = this.list();
+	
+			// only load wawas
+			autoMapper.mapperEntityList(list, "waWa");
+	
+			// init wawas's courses
+			for (int i = 0; i < list.size(); i++) {
+				autoMapper.mapperEntityCollection(list.get(i).getWaWa(), "courses");
+			}
+	
+			autoMapper.mapperEntityList(list, "tels");
+			return list;
+	}
+
+
+控制台输出：
+Creating a new SqlSession
+Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+JDBC Connection [HikariProxyConnection@1100422590 wrapping conn0: url=jdbc:h2:mem:test user=ROOT] will be managed by Spring
+==>  Preparing: SELECT man_id AS id,name,lao_po_id,company_id FROM man 
+==> Parameters: 
+<==    Columns: ID, NAME, LAO_PO_ID, COMPANY_ID
+<==        Row: 1, 程序猿小明, 1, 1
+<==        Row: 2, 隔壁老王2, 2, 1
+<==        Row: 3, 隔壁老王3, 3, 2
+<==      Total: 3
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT company_id AS id,name FROM company WHERE (company_id IN (?,?)) 
+==> Parameters: 1(Long), 2(Long)
+<==    Columns: ID, NAME
+<==        Row: 1, 百度
+<==        Row: 2, 小米
+<==      Total: 2
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT child_id AS id,name,lao_han_id,lao_ma_id FROM child WHERE (lao_han_id IN (?,?,?)) 
+==> Parameters: 1(Long), 2(Long), 3(Long)
+<==    Columns: ID, NAME, LAO_HAN_ID, LAO_MA_ID
+<==        Row: 1, 小小明, 1, 1
+<==        Row: 2, 小小王, 2, 2
+<==        Row: 3, 旺仔, 2, 1
+<==        Row: 4, 小馒头, 2, 1
+<==        Row: 5, 大礼包, 1, 2
+<==        Row: 6, 小礼包, 3, 2
+<==      Total: 6
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT id,tel,man_id FROM tel WHERE (man_id IN (?,?,?)) 
+==> Parameters: 1(Long), 2(Long), 3(Long)
+<==    Columns: ID, TEL, MAN_ID
+<==        Row: 1, 139xxxxxx, 1
+<==        Row: 2, 137xxxxxx, 1
+<==        Row: 3, 158xxxxxx, 2
+<==        Row: 4, 159xxxxxx, 1
+<==        Row: 5, 159xxxxxx, 3
+<==        Row: 6, 169xxxxxx, 3
+<==        Row: 7, 179xxxxxx, 3
+<==        Row: 8, 189xxxxxx, 3
+<==      Total: 8
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT woman_id AS id,name,lao_gong_id FROM woman WHERE (woman_id IN (?,?,?)) 
+==> Parameters: 1(Long), 2(Long), 3(Long)
+<==    Columns: ID, NAME, LAO_GONG_ID
+<==        Row: 1, 程序猿小明老婆, 1
+<==        Row: 2, 隔壁老王老婆, 2
+<==        Row: 3, 隔壁老王老婆3, 3
+<==      Total: 3
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT id,student_id,course_id FROM student_course WHERE (student_id IN (?,?)) 
+==> Parameters: 5(Long), 1(Long)
+<==    Columns: ID, STUDENT_ID, COURSE_ID
+<==        Row: 1, 1, 1
+<==        Row: 2, 1, 2
+<==        Row: 3, 1, 3
+<==      Total: 3
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT course_id AS id,name FROM course WHERE (course_id IN (?,?,?)) 
+==> Parameters: 1(Long), 2(Long), 3(Long)
+<==    Columns: ID, NAME
+<==        Row: 1, 语文
+<==        Row: 2, 英语
+<==        Row: 3, 化学
+<==      Total: 3
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT id,student_id,course_id FROM student_course WHERE (student_id IN (?,?,?)) 
+==> Parameters: 4(Long), 3(Long), 2(Long)
+<==    Columns: ID, STUDENT_ID, COURSE_ID
+<==        Row: 4, 2, 2
+<==        Row: 5, 2, 3
+<==        Row: 6, 3, 1
+<==      Total: 3
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+==>  Preparing: SELECT course_id AS id,name FROM course WHERE (course_id IN (?,?,?)) 
+==> Parameters: 2(Long), 3(Long), 1(Long)
+<==    Columns: ID, NAME
+<==        Row: 1, 语文
+<==        Row: 2, 英语
+<==        Row: 3, 化学
+<==      Total: 3
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Fetched SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b] from current transaction
+Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@21d7bd5b]
+
+
+注意：
+普通test正常，但springboot-mybatis-plus使用时 ，启动报警告：No MyBatis mapper was found in 。。。   这时缺少了XXXXMapper.xml文件
+对于每个entity类，复制一份类似以下的XML即可：
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.github.dreamyoung.mprelation.demo.mapper.ManMapper">
+
+</mapper>
+
+也可以将XML文件与MAPPER接口放在同一目录（或者直接删除所有的XML文件，或者配置mapper-locations为多个目录，同时指向MAPPER接口目录以及xml目录）
