@@ -73,7 +73,7 @@ public class Man {
 	@TableField(exist = false)
 	@OneToMany
 	@JoinColumn(name = "man_id", referencedColumnName = "man_id")
-	//@Lazy(false)
+	@Lazy(false)
 	private Set<Tel> tels;
 
 	

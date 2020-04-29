@@ -27,10 +27,12 @@ import com.github.dreamyoung.mprelation.demo.entity.Man;
 import com.github.dreamyoung.mprelation.demo.entity.Teacher;
 import com.github.dreamyoung.mprelation.demo.entity.Tel;
 import com.github.dreamyoung.mprelation.demo.entity.Woman;
+import com.github.dreamyoung.mprelation.demo.entity2.bean.Child2;
 import com.github.dreamyoung.mprelation.demo.mapper.ChildMapper;
 import com.github.dreamyoung.mprelation.demo.mapper.CompanyMapper;
 import com.github.dreamyoung.mprelation.demo.mapper.ManMapper;
 import com.github.dreamyoung.mprelation.demo.mapper.WomanMapper;
+import com.github.dreamyoung.mprelation.demo.service.IChild2Service;
 import com.github.dreamyoung.mprelation.demo.service.IChildService;
 import com.github.dreamyoung.mprelation.demo.service.ICompanyService;
 import com.github.dreamyoung.mprelation.demo.service.IManService;
@@ -57,6 +59,8 @@ public class SpringBootApplicationTest {
 	private IWomanService womanService;
 	@Autowired
 	private IChildService childService;
+	@Autowired
+	private IChild2Service child2Service;
 	@Autowired
 	private ICompanyService companyService;
 
@@ -164,8 +168,36 @@ public class SpringBootApplicationTest {
 
 	@Test
 	public void t_child_service() {
-		List<Child> child = childService.list();
-		System.out.println(child);
+		List<Child> childList = childService.list();
+		System.out.println(childList);
+	}
+	
+
+
+	@Test
+	public void t_child2_service() {
+		List<Child2> childList = child2Service.list2();
+		System.out.println(childList);
+	}
+	
+	@Test
+	public void t_child_serviceWithInitialize() {
+		List<Child> childList = childService.listByInitialize();
+		System.out.println(childList);
+	}
+	
+
+	@Test
+	public void t_child_serviceWithInitialize2() {
+		List<Child> childList = childService.listByInitialize2();
+		System.out.println(childList);
+	}
+	
+
+	@Test
+	public void t_child_serviceWithInitialize3() {
+		List<Child> childList = childService.listByInitialize3();
+		System.out.println(childList);
 	}
 
 	@Test
