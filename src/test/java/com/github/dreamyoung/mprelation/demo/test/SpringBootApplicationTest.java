@@ -168,16 +168,51 @@ public class SpringBootApplicationTest {
 
 	@Test
 	public void t_child_service() {
+		Child child = childService.getById(1L);
+		System.out.println(child);
+	}
+	
+	@Test
+	public void t_child12X_service() {
+		Child child = childService.getById(1L);
+		System.out.println(child);
+		
+
+		Child2 child2 = child2Service.getById(1L);
+		System.out.println(child2);
+		
+
+		Child2 child2X = child2Service.getById1(1L);
+		System.out.println(child2X);
+	}
+	
+	
+	@Test
+	public void t_childlist_service() {
 		List<Child> childList = childService.list();
 		System.out.println(childList);
 	}
-	
 
+	
+	@Test
+	public void t_child2list_service() {
+		List<Child2> childList = child2Service.list2();
+		System.out.println(childList);
+	}
+	
+	
 
 	@Test
 	public void t_child2_service() {
-		List<Child2> childList = child2Service.list2();
-		System.out.println(childList);
+		Child2 child2 = child2Service.getById(1L);
+		System.out.println(child2);
+	}
+	
+	
+	@Test
+	public void t_child2_service2() {
+		Child2 child2 = child2Service.getById1(2L);
+		System.out.println(child2);
 	}
 	
 	@Test
@@ -287,6 +322,8 @@ public class SpringBootApplicationTest {
 		System.out.println("company name:" + company.getName());
 
 		autoMapper.mapperEntity(company, "employees");
+		//autoMapper.mapperEntity(company, "employees");
+		//autoMapper.mapperEntity(company, "employees");
 
 		List<Man> emplyoees = company.getEmployees();
 		System.out.println("emplyoees:" + emplyoees);

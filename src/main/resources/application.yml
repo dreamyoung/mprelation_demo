@@ -36,7 +36,8 @@ logging:
 
 mybatis-plus:
   #如果xml映射文件的位置与mapper接口文件（mapper接口可以通过@Mapper被扫描或者配置类@MapperScan指定位置扫描）的位置不同目录，则需要指定
-  #mapper-locations: classpath:/com/github/dreamyoung/mprelation/demo/mapper2/*Mapper.xml
+  mapper-locations: classpath:/mapper/*Mapper.xml,/com/github/dreamyoung/mprelation/demo/mapper/*Mapper.xml,/com/github/dreamyoung/mprelation/demo/mapper2/*Mapper.xml
+  #mapper-locations: classpath:/mapper33333/*Mapper.xml
   global-config: 
       db-config: 
           #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";

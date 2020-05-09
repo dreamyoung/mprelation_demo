@@ -1,5 +1,6 @@
 package com.github.dreamyoung.mprelation.demo.service.impl;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +18,14 @@ public class Child2ServiceImpl extends ServiceImpl<Child2Mapper, Child2> impleme
 			List<Child2> list = this.list();
 			this.autoMapper.initialize(list, "courses");
 			return list;
+	}
+	
+	@Transactional
+	@Override
+	public Child2 getById1(Long id) {
+		Child2 child2 = ((Child2Mapper)this.getBaseMapper()).selectById1(id);
+		this.autoMapper.initialize(child2, "courses");
+		return child2;
 	}
 
 }

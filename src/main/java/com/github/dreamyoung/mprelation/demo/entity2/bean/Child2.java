@@ -23,7 +23,6 @@ import lombok.Data;
 @TableName("child")
 @AutoLazy
 public class Child2 {
-
 	@TableId("child_id")
 	private Long id;
 
