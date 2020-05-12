@@ -294,6 +294,8 @@ public class SpringBootApplicationTest {
 		Woman woman = man.getLaoPo();
 		System.out.println(woman == null);
 		System.out.println(woman);
+		
+		org.mybatis.spring.SqlSessionUtils i = null;
 	}
 
 	@Test
@@ -509,7 +511,7 @@ public class SpringBootApplicationTest {
 
 	@Test
 	public void t_automapper_method_initialize() {
-		List<Man> mans = manMapper.selectList(Wrappers.emptyWrapper());
+		List<Man> mans = manMapper.selectList(null);
 		autoMapper.initialize(mans, "laoPo", "company", "waWa");
 
 		for (Man man : mans) {
