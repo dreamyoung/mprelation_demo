@@ -1,13 +1,21 @@
 server:
   port: 8899
+  tomcat:
+       uri-encoding: UTF-8
 
 # DataSource Config
 
 spring:
+  http:
+    encoding:
+        enabled: true
+        force: true
+        charset: UTF-8
   datasource:
     driver-class-name: org.h2.Driver
     schema: classpath:db/schema-h2.sql
     data: classpath:db/data-h2.sql
+    sql-script-encoding: utf-8
     url: jdbc:h2:mem:test
     username: root
     password: test
@@ -28,6 +36,11 @@ spring:
       max-total: 50                                 # 最大的连接数
       max-wait-millis: 200                          # 等待连接获取的最大超时时间
     
+
+
+
+
+
 
 # Logger Config
 logging:

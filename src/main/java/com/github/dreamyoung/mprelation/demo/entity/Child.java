@@ -50,7 +50,7 @@ public class Child {
 	@JoinTable(targetMapper = StudentCourseMapper.class)
 	@JoinColumn(name = "child_id", referencedColumnName = "student_id")
 	@InverseJoinColumn(name = "course_id", referencedColumnName = "course_id")
-	@Lazy()
+	@Lazy(false)
 	private List<Course> courses;
 
 	@TableField(exist = false)
@@ -58,7 +58,7 @@ public class Child {
 	@JoinTable(targetMapper = StudentTeacherMapper.class)
 	@JoinColumn(name = "child_id", referencedColumnName = "student_id")
 	@InverseJoinColumn(name = "teacher_id", referencedColumnName = "teacher_id")
-	@Lazy
+	@Lazy(false)
 	private Set<Teacher> teachers;
 
 }
